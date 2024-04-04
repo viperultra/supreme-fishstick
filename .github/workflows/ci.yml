@@ -47,11 +47,10 @@ jobs:
         run: |
           mkdir -p package/helloworld
           mv build/helloworld package/helloworld/
-          echo "description=\"A simple Hello World program\"" > package/helloworld/APKBUILD
-          echo "pkgname=helloworld" >> package/helloworld/APKBUILD
           echo "pkgver=1.0" >> package/helloworld/APKBUILD
           echo "pkgrel=1" >> package/helloworld/APKBUILD
-          echo "arch=aarch64" >> package/helloworld/APKBUILD
+          echo "pkgdesc=\"A simple Hello World program\"" >> package/helloworld/APKBUILD  
+          echo "arch=noarch" >> package/helloworld/APKBUILD
           echo "url=\"https://example.com\"" >> package/helloworld/APKBUILD
           echo "license=\"MIT\"" >> package/helloworld/APKBUILD
           echo "depends=" >> package/helloworld/APKBUILD
