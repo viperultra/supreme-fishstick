@@ -18,67 +18,25 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Print current directory
-        run: pwd
 
       - name: Set up Alpine Linux for ${{ matrix.os-arch }} (target arch)
         id: alpine-target
         uses: jirutka/setup-alpine@v1
         with:
           arch: ${{ matrix.os-arch }}
-          branch: edge
+          branch: latest-stable
           packages: >
+            build-base
             alpine-sdk
             cmake
-            abuild
             g++
-          shell-name: alpine-target.sh
+          shell: alpine.sh {0}
 
-      - name: Print current directory
-        run: pwd
 
       - name: Build C++ application with CMake
         run: cmake -B build && cmake --build build --config Release
+        shell: alpine.sh {0}
 
-      - name: Running binary
+      - name: Try to run the binary
         run: ./build/helloworld
-       
-
-      - name: Create APK package directory structure
-        run: |
-          mkdir -p package/helloworld
-          mv build/helloworld package/helloworld/
-          echo "description=\"A simple Hello World program\"" > package/helloworld/APKBUILD
-          echo "pkgname=helloworld" >> package/helloworld/APKBUILD
-          echo "pkgver=1.0" >> package/helloworld/APKBUILD
-          echo "arch=noarch" >> package/helloworld/APKBUILD
-          echo "url=\"https://example.com\"" >> package/helloworld/APKBUILD
-          echo "license=\"MIT\"" >> package/helloworld/APKBUILD
-          echo "depends=" >> package/helloworld/APKBUILD
-          echo "" >> package/helloworld/APKBUILD
-          echo "build() {" >> package/helloworld/APKBUILD
-          echo "    return 0" >> package/helloworld/APKBUILD
-          echo "}" >> package/helloworld/APKBUILD
-          echo "" >> package/helloworld/APKBUILD
-          echo "package() {" >> package/helloworld/APKBUILD
-          echo "    mkdir -p \"\$pkgdir\"" >> package/helloworld/APKBUILD
-          echo "    cp -r \"\$srcdir\"/* \"\$pkgdir\"/" >> package/helloworld/APKBUILD
-          echo "}" >> package/helloworld/APKBUILD
-
-      - name: Print current directory
-        run: pwd
-
-      - name: Install abuild and add user to abuild group
-        run: |
-          apk add alpine-sdk
-          addgroup "$(whoami)" abuild
-          
-      - name: Print current directory
-        run: pwd
-
-      - name: Build APK package
-        run: |
-          cd package/helloworld
-          abuild checksum
-          abuild -r
-          
+        shell: alpine.sh {0}
