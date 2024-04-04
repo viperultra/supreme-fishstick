@@ -18,6 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Print current directory
+        run: pwd
+
       - name: Set up Alpine Linux for ${{ matrix.os-arch }} (target arch)
         id: alpine-target
         uses: jirutka/setup-alpine@v1
@@ -30,8 +33,20 @@ jobs:
             g++
           shell-name: alpine-target.sh
 
+      - name: Print current directory
+        run: pwd
+
       - name: Build C++ application with CMake
         run: cmake -B build && cmake --build build --config Release
+
+      - name: Print current directory
+        run: pwd
+
+      - name: List contents of the build directory
+        run: ls -l build
+
+      - name: Print current directory
+        run: pwd
 
       - name: Try to run the binary
         run: ./build/helloworld
