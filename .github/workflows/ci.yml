@@ -18,7 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-
       - name: Set up Alpine Linux for ${{ matrix.os-arch }} (target arch)
         id: alpine-target
         uses: jirutka/setup-alpine@v1
@@ -32,7 +31,6 @@ jobs:
             g++
           shell: alpine.sh {0}
 
-
       - name: Build C++ application with CMake
         run: cmake -B build && cmake --build build --config Release
         shell: alpine.sh {0}
@@ -40,6 +38,11 @@ jobs:
       - name: Try to run the binary
         run: ./build/helloworld
         shell: alpine.sh {0}
+
+      - name: Generate private key
+        run: abuild-keygen -a
+        shell: alpine.sh {0}
+
       - name: Create APK package directory structure
         run: |
           mkdir -p package/helloworld
@@ -62,11 +65,9 @@ jobs:
           echo "}" >> package/helloworld/APKBUILD
         shell: alpine.sh {0} 
 
-
-
       - name: Build APK package
         run: |
           cd package/helloworld
           abuild checksum
           abuild -r
-        shell: alpine.sh {0} 
+        shell: alpine.sh {0}
