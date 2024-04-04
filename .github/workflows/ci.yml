@@ -40,3 +40,34 @@ jobs:
       - name: Try to run the binary
         run: ./build/helloworld
         shell: alpine.sh {0}
+      - name: Create APK package directory structure
+        run: |
+          mkdir -p package/helloworld
+          mv build/helloworld package/helloworld/
+          echo "description=\"A simple Hello World program\"" > package/helloworld/APKBUILD
+          echo "pkgname=helloworld" >> package/helloworld/APKBUILD
+          echo "pkgver=1.0" >> package/helloworld/APKBUILD
+          echo "arch=noarch" >> package/helloworld/APKBUILD
+          echo "url=\"https://example.com\"" >> package/helloworld/APKBUILD
+          echo "license=\"MIT\"" >> package/helloworld/APKBUILD
+          echo "depends=" >> package/helloworld/APKBUILD
+          echo "" >> package/helloworld/APKBUILD
+          echo "build() {" >> package/helloworld/APKBUILD
+          echo "    return 0" >> package/helloworld/APKBUILD
+          echo "}" >> package/helloworld/APKBUILD
+          echo "" >> package/helloworld/APKBUILD
+          echo "package() {" >> package/helloworld/APKBUILD
+          echo "    mkdir -p \"\$pkgdir\"" >> package/helloworld/APKBUILD
+          echo "    cp -r \"\$srcdir\"/* \"\$pkgdir\"/" >> package/helloworld/APKBUILD
+          echo "}" >> package/helloworld/APKBUILD
+        shell: alpine.sh {0} 
+
+
+
+      - name: Build APK package
+        run: |
+          addgroup "$(whoami)" abuild
+          cd package/helloworld
+          abuild checksum
+          abuild -r
+        shell: alpine.sh {0} 
