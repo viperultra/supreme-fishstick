@@ -80,4 +80,4 @@ jobs:
           cd package/helloworld
           abuild checksum
           abuild -r
-      shell: alpine.sh {0}
+        shell: alpine-target.sh {0}
