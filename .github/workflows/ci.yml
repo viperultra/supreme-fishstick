@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - feature/github_actions
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,7 +31,11 @@ jobs:
           shell-name: alpine-target.sh
 
       - name: Build C++ application with CMake
-        run: cmake -B build && cmake --build build --config Release
+        run: |
+          cmake -B build && cmake --build build --config Release
+          # Print current directory
+          pwd
+        shell: bash
 
       - name: Try to run the binary
         run: ../build/helloworld
