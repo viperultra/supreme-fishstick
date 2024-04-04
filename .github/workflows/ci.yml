@@ -72,12 +72,11 @@ jobs:
           echo "    cp -r \"\$srcdir\"/* \"\$pkgdir\"/" >> package/helloworld/APKBUILD
           echo "}" >> package/helloworld/APKBUILD
 
-      - name: Print current directory
-        run: pwd
 
       - name: Build APK package
         run: |
           cd package/helloworld
+          pwd
           abuild checksum
           abuild -r
         
