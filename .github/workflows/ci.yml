@@ -31,7 +31,7 @@ jobs:
             alpine-sdk
             cmake
             g++
-          shell-name: alpine-target.sh
+        shell-name: alpine-target.sh
 
       - name: Print current directory
         run: pwd
