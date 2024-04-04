@@ -30,8 +30,8 @@ jobs:
           shell-name: alpine-target.sh
 
       - name: Build C++ application with CMake
-        run: cmake -B build -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain/${{ matrix.os-arch }}.cmake && cmake --build build --config Release
+        run: cmake -B build && cmake --build build --config Release
 
       - name: Try to run the binary
-        run: ./build/myapp --version
+        run: ./build/helloworld
         shell: alpine-target.sh {0}
