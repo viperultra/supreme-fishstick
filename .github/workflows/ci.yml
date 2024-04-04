@@ -30,6 +30,7 @@ jobs:
           packages: >
             alpine-sdk
             cmake
+            abuild
             g++
           shell-name: alpine-target.sh
 
