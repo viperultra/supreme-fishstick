@@ -40,7 +40,7 @@ jobs:
         shell: alpine.sh {0}
 
       - name: Generate private key
-        run: abuild-keygen -a
+        run: abuild-keygen -an
         shell: alpine.sh {0}
 
       - name: Create APK package directory structure
