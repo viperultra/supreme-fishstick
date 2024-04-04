@@ -31,7 +31,6 @@ jobs:
             alpine-sdk
             cmake
             g++
-            abuild
           shell-name: alpine-target.sh
 
       - name: Print current directory
@@ -49,6 +48,9 @@ jobs:
       - name: Print current directory
         run: pwd
 
+      - name: Try to run the binary
+        run:  ./build/helloworld
+
       - name: Create APK package directory structure
         run: |
           mkdir -p package/helloworld
@@ -58,7 +60,7 @@ jobs:
           echo "pkgver=1.0" >> package/helloworld/APKBUILD
           echo "arch=noarch" >> package/helloworld/APKBUILD
           echo "url=\"https://example.com\"" >> package/helloworld/APKBUILD
-          echo "license=\"MIT\"" >> package/helloworld/APKBUILD
+          echo "license=\"GPL\"" >> package/helloworld/APKBUILD
           echo "depends=" >> package/helloworld/APKBUILD
           echo "" >> package/helloworld/APKBUILD
           echo "build() {" >> package/helloworld/APKBUILD
@@ -78,3 +80,4 @@ jobs:
           cd package/helloworld
           abuild checksum
           abuild -r
+        
