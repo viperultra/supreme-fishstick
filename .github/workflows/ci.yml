@@ -31,12 +31,8 @@ jobs:
           shell-name: alpine-target.sh
 
       - name: Build C++ application with CMake
-        run: |
-          cmake -B build && cmake --build build --config Release
-          # Print current directory
-          pwd
-        shell: bash
+        run: cmake -B build && cmake --build build --config Release
 
       - name: Try to run the binary
-        run: ../build/helloworld
+        run: ./build/helloworld
         shell: alpine-target.sh {0}
