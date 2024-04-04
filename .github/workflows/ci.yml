@@ -31,7 +31,7 @@ jobs:
             alpine-sdk
             cmake
             g++
-        shell-name: alpine-target.sh
+          shell-name: alpine-target.sh
 
       - name: Print current directory
         run: pwd
@@ -39,7 +39,7 @@ jobs:
       - name: Build C++ application with CMake
         run: cmake -B build && cmake --build build --config Release
 
-      -name : Running binary
+      - name: Running binary
         run: ./build/helloworld
         shell: alpine-target.sh {0}
 
@@ -71,7 +71,7 @@ jobs:
         run: |
           apk add alpine-sdk
           addgroup "$(whoami)" abuild
-
+          shell: alpine-target.sh {0}
       - name: Print current directory
         run: pwd
 
@@ -80,4 +80,4 @@ jobs:
           cd package/helloworld
           abuild checksum
           abuild -r
-        shell: alpine-target.sh {0}
+          shell: alpine-target.sh {0}
