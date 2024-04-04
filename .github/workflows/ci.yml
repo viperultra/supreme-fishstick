@@ -70,6 +70,7 @@ jobs:
           cd package/helloworld
           abuild checksum
           abuild -r
+          pwd
         shell: alpine.sh {0}
 
       - name: Copy APK file out of chroot
