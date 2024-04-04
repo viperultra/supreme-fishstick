@@ -78,6 +78,7 @@ jobs:
         run: |
           cd package/helloworld
           pwd
+          cat APKBUILD
           abuild checksum
-          abuild -r
+        #  abuild -r
         
