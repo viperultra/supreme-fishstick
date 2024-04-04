@@ -31,6 +31,7 @@ jobs:
             alpine-sdk
             cmake
             g++
+            abuild
           shell-name: alpine-target.sh
 
       - name: Print current directory
