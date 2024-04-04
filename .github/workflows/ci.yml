@@ -49,5 +49,5 @@ jobs:
         run: pwd
 
       - name: Try to run the binary
-        run: ./build/helloworld
+        run: ./helloworld
         shell: alpine-target.sh {0}
