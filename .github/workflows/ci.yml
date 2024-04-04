@@ -71,6 +71,7 @@ jobs:
           abuild checksum
           abuild -r
           pwd
+          ls -la
         shell: alpine.sh {0}
 
       - name: Create Release
