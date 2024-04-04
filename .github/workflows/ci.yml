@@ -50,28 +50,21 @@ jobs:
           shell-name: alpine.sh
 
       - name: Create package directory
-        run: mkdir -p /home/runner/package
+        run: mkdir -p /home/runner/package/build
 
       - name: Configure CMake
         run: |
-          mkdir -p /home/runner/package/build
-          cd /home/runner/package/build
-          alpine.sh --root /home/runner/package cmake .. -DPATCH_VERSION=${{ github.run_number }}
+          alpine.sh --root /home/runner/package cmake -S . -B build -DPATCH_VERSION=${{ github.run_number }}
 
       - name: Build
-        run: |
-          cd /home/runner/package/build
-          alpine.sh --root /home/runner/package cmake --build .
+        run: alpine.sh --root /home/runner/package cmake --build /home/runner/package/build
 
       - name: Run tests
-        run: |
-          cd /home/runner/package/build
-          alpine.sh --root /home/runner/package cmake --build . --target test
+        run: alpine.sh --root /home/runner/package cmake --build /home/runner/package/build --target test
 
       - name: Package
         run: |
-          cd /home/runner/package/build
-          alpine.sh --root /home/runner/package cmake --build . --target package
+          alpine.sh --root /home/runner/package cmake --build /home/runner/package/build --target package
           abuild -r --root /home/runner/package
 
       - name: Create Release
