@@ -92,6 +92,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/work/supreme-fishstick/supreme-fishstick/package/helloworld/helloworld-1.0-r1.apk
+          asset_path: /home/runner/work/supreme-fishstick/supreme-fishstick/package/helloworld/helloworld
           asset_name: helloworld-1.0-r1.apk
           asset_content_type: application/vnd.alpine.package+json
