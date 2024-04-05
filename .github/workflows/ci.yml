@@ -60,8 +60,7 @@ jobs:
           echo "}" >> package/helloworld/APKBUILD
           echo "" >> package/helloworld/APKBUILD
           echo "package() {" >> package/helloworld/APKBUILD
-          echo "    mkdir -p \"\$pkgdir\"" >> package/helloworld/APKBUILD
-          echo "    cp -r \"\$srcdir\"/* \"\$pkgdir\"/" >> package/helloworld/APKBUILD
+          echo "    make DESTDIR=\"\$pkgdir\" install" >> package/helloworld/APKBUILD
           echo "}" >> package/helloworld/APKBUILD
         shell: alpine.sh {0} 
 
