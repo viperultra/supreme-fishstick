@@ -61,7 +61,7 @@ jobs:
 
       - name: Build APK package
         run: |
-          doas adduser runner abuild
+          adduser runner abuild
           cd package/helloworld
           abuild checksum
           abuild -r
